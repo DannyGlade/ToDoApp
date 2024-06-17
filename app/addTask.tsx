@@ -5,22 +5,27 @@ import {
   TouchableHighlight,
   TextInput,
   Switch,
-  Button,
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
+import { useRouter } from "expo-router";
+import useTaskList from "@/hooks/useTaskList";
 
 const AddTask = () => {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState(false);
+  const { addTask } = useTaskList();
 
   const handleAddTaskClick = () => {
     if (title.trim() === "") {
       Alert.alert("Title is required");
     }
 
-    
+    addTask(title, status).then(() => {
+      router.dismiss();
+    });
   };
 
   return (
