@@ -1,6 +1,7 @@
 import Task from "@/components/ToDo/Task";
 import { TaskClass } from "@/constants/Types";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -12,6 +13,9 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Index = () => {
+
+  const router = useRouter();
+
   const [tasks, setTasks] = useState<TaskClass[]>([
     new TaskClass({ id: 1, title: "Task 1", status: false }),
     new TaskClass({ id: 2, title: "Task 2", status: false }),
@@ -29,13 +33,18 @@ const Index = () => {
     );
   };
 
+  const handleAddTaskClick = () => {
+    // console.log("Add task");
+    router.push("addTask");
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>Tasks</Text>
           <TouchableHighlight
-            onPress={() => console.log("Add task")}
+            onPress={handleAddTaskClick}
             style={styles.addTask}
           >
             <Ionicons name="add" size={24} color="black" />
