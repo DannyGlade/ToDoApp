@@ -17,8 +17,10 @@ const AddTask = () => {
 
   const handleAddTaskClick = () => {
     if (title.trim() === "") {
-        Alert.alert("Title is required");
+      Alert.alert("Title is required");
     }
+
+    
   };
 
   return (
@@ -40,7 +42,11 @@ const AddTask = () => {
         </View>
       </View>
 
-      <TouchableHighlight style={styles.button} onPress={handleAddTaskClick}>
+      <TouchableHighlight
+        style={[styles.button, title.trim() === "" && styles.disabled]}
+        disabled={title.trim() === ""}
+        onPress={handleAddTaskClick}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -78,6 +84,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#0081e3",
     padding: 10,
     borderRadius: 5,
+  },
+  disabled: {
+    backgroundColor: "#ccc",
   },
   buttonText: {
     color: "white",
