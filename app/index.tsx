@@ -19,7 +19,7 @@ const Index = () => {
   const segments = useSegments();
   const [loading, setLoading] = useState(false);
 
-  const { tasks, handleStatusChange, refreshTasks } = useTaskList();
+  const { tasks, handleStatusChange, deleteTask, refreshTasks } = useTaskList();
 
   const handleRefresh = () => {
     refreshTasks().then(() => setLoading(false));
@@ -65,6 +65,7 @@ const Index = () => {
                         key={task.id}
                         task={task}
                         changeStatus={handleStatusChange}
+                        deleteTask={deleteTask}
                       />
                     )
                 )}
@@ -81,6 +82,7 @@ const Index = () => {
                         key={task.id}
                         task={task}
                         changeStatus={handleStatusChange}
+                        deleteTask={deleteTask}
                       />
                     )
                 )}
