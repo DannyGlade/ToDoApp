@@ -1,37 +1,34 @@
 import Task from "@/components/ToDo/Task";
 import { TaskClass } from "@/constants/Types";
+import useTaskList from "@/hooks/useTaskList";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useFocusEffect, useRouter, useSegments } from "expo-router";
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
   Text,
   TouchableHighlight,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Index = () => {
-
   const router = useRouter();
+  const segments = useSegments();
+  const [loading, setLoading] = useState(false);
 
-  const [tasks, setTasks] = useState<TaskClass[]>([
-    new TaskClass({ id: 1, title: "Task 1", status: false }),
-    new TaskClass({ id: 2, title: "Task 2", status: false }),
-    new TaskClass({ id: 3, title: "Task 3", status: false }),
-  ]);
+  const { tasks, handleStatusChange, refreshTasks } = useTaskList();
 
-  const handleStatusChange = (id: number) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => {
-        if (task.id === id) {
-          task.toggleStatus();
-        }
-        return task;
-      })
-    );
+  const handleRefresh = () => {
+    refreshTasks().then(() => setLoading(false));
   };
+
+  useEffect(() => {
+    setLoading(true);
+    refreshTasks().then(() => setLoading(false));
+  }, [segments]);
 
   const handleAddTaskClick = () => {
     // console.log("Add task");
@@ -54,6 +51,7 @@ const Index = () => {
           showsVerticalScrollIndicator={false}
           style={styles.scrollView}
         >
+          <RefreshControl refreshing={loading} onRefresh={handleRefresh} />
           <View style={styles.tasks}>
             {tasks.length === 0 && <Text>No tasks</Text>}
 
@@ -98,6 +96,7 @@ const Index = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    marginBottom: 200,
   },
   header: {
     marginBottom: 20,
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e6e6e6",
   },
   scrollView: {
-    height: "80%",
+    height: "100%",
   },
   tasks: {
     // marginTop: 20,
