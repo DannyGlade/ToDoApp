@@ -4,7 +4,10 @@ export default function RootLayout() {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="addTask" options={{ title: "Add Task" }} />
+      <Stack.Screen
+        name="addTask"
+        options={{ title: "Add Task", presentation: "modal" }}
+      />
     </Stack>
   );
 }
