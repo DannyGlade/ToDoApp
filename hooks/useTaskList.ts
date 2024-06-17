@@ -82,5 +82,11 @@ export default function useTaskList() {
     });
   };
 
-  return { tasks, handleStatusChange, addTask, refreshTasks };
+  const deleteTask = (id: number) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+    saveTasks(updatedTasks);
+  };
+
+  return { tasks, handleStatusChange, refreshTasks, addTask, deleteTask };
 }
