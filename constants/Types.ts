@@ -20,3 +20,11 @@ export class TaskClass {
   }
 
 }
+
+export interface TaskListHook {
+  tasks: TaskClass[];
+  handleStatusChange: (id: number) => void;
+  refreshTasks: () => Promise<void>;
+  addTask: (title: string, status: boolean) => Promise<void>;
+  deleteTask: (id: number) => void;
+}
