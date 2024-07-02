@@ -1,4 +1,4 @@
-import { TaskClass } from "@/constants/Types";
+import { TaskClass, TaskListHook } from "@/constants/Types";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "expo-router";
@@ -36,7 +36,7 @@ const modifyTask = async (task?: TaskClass) => {
   }
 };
 
-export default function useTaskList() {
+export default function useTaskList(): TaskListHook {
   const [tasks, setTasks] = useState<TaskClass[]>([]);
 
   useEffect(() => {
