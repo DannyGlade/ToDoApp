@@ -1,5 +1,6 @@
 import Task from "@/components/ToDo/Task";
 import { TaskClass } from "@/constants/Types";
+import useFirebaseTaskList from "@/hooks/useFirebaseTaskList";
 import useTaskList from "@/hooks/useTaskList";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect, useRouter, useSegments } from "expo-router";
@@ -19,7 +20,8 @@ const Index = () => {
   const segments = useSegments();
   const [loading, setLoading] = useState(false);
 
-  const { tasks, handleStatusChange, deleteTask, refreshTasks } = useTaskList();
+  const { tasks, handleStatusChange, deleteTask, refreshTasks } = useFirebaseTaskList();
+  // const { tasks, handleStatusChange, deleteTask, refreshTasks } = useTaskList();
 
   const handleRefresh = () => {
     refreshTasks().then(() => setLoading(false));

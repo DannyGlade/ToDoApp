@@ -11,12 +11,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import useTaskList from "@/hooks/useTaskList";
+import useFirebaseTaskList from "@/hooks/useFirebaseTaskList";
 
 const AddTask = () => {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState(false);
-  const { addTask } = useTaskList();
+  // const { addTask } = useTaskList();
+  const { addTask } = useFirebaseTaskList();
 
   const handleAddTaskClick = () => {
     if (title.trim() === "") {
